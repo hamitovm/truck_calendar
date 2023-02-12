@@ -2,37 +2,57 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.page-header {
+  height: 60px;
+  border-bottom: 1px solid black;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main {
   display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  max-width: 225px;
+  border-right: 1px solid black;
+}
+.truck_calendar {
+  display: flex;
+  width: 100%;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.truck_calendar_row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  width: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.item {
+  /*display: flex;*/
+  /*flex-wrap: wrap;*/
+  /*margin: 0 auto;*/
+  font-size: 20px;
+  font-weight: 700;
+  padding: 5px;
+  min-height: 50px;
+  border: 1px solid black;
 }
+
+.truck_element {
+  /*align-items: flex-start;*/
+  font-size: 10px;
+  border: 1px solid grey;
+  border-radius: 3px;
+  margin: 2px;
+  padding: 3px;
+}
+
+.truck_list_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+
