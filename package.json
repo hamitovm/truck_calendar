@@ -1,5 +1,6 @@
 {
   "name": "my-app",
+  "homepage": "https://hamitovm.github.io/truck_calendar",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,6 +13,7 @@
     "@types/react-calendar": "^3.9.0",
     "@types/react-dom": "^18.0.0",
     "@types/uuid": "^9.0.0",
+    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-calendar": "^4.0.0",
     "react-dom": "^18.2.0",
