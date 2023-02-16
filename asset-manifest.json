@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/truck_calendar/static/css/main.4008370a.css",
-    "main.js": "/truck_calendar/static/js/main.43b00403.js",
+    "main.css": "/truck_calendar/static/css/main.428aedf9.css",
+    "main.js": "/truck_calendar/static/js/main.fc3e4c23.js",
     "static/js/787.28cb0dcd.chunk.js": "/truck_calendar/static/js/787.28cb0dcd.chunk.js",
     "index.html": "/truck_calendar/index.html",
-    "main.4008370a.css.map": "/truck_calendar/static/css/main.4008370a.css.map",
-    "main.43b00403.js.map": "/truck_calendar/static/js/main.43b00403.js.map",
+    "main.428aedf9.css.map": "/truck_calendar/static/css/main.428aedf9.css.map",
+    "main.fc3e4c23.js.map": "/truck_calendar/static/js/main.fc3e4c23.js.map",
     "787.28cb0dcd.chunk.js.map": "/truck_calendar/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4008370a.css",
-    "static/js/main.43b00403.js"
+    "static/css/main.428aedf9.css",
+    "static/js/main.fc3e4c23.js"
   ]
 }
