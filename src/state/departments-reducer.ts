@@ -1,10 +1,5 @@
 import {v1} from "uuid";
-import {
-    addTruckGroupAC,
-    changeTruckGroupOrderAC,
-    changeTruckGroupTitleAC, truckGroupsInitialState, truckGroupsReducerActionType,
-    TruckGroupType
-} from "./truck-groups-reducer";
+
 
 export type DepartmentType = {
     id: string
@@ -91,7 +86,7 @@ export const departmentsInitialState: Array<DepartmentType> = [
     }
 ]
 
-export type departmentsReducerActionType = DeleteDepartmentActionType
+export type DepartmentsReducerActionType = DeleteDepartmentActionType
     | AddDepartmentActionType
     | ReturnFromArchiveDepartmentActionType
     | SendToArchiveDepartmentActionType
@@ -167,7 +162,7 @@ export const setOrderDepartmentAC = (departmentId: string, order: number | null)
     } as const
 }
 
-export const departmentsReducer = (state:  Array<DepartmentType> = departmentsInitialState, action: departmentsReducerActionType): Array<DepartmentType> => {
+export const departmentsReducer = (state:  Array<DepartmentType> = departmentsInitialState, action: DepartmentsReducerActionType): Array<DepartmentType> => {
     switch (action.type) {
         case 'DELETE_DEPARTMENT':
             return state.filter(el => el.id !== action.departmentId)

@@ -36,7 +36,7 @@ export const truckGroupsInitialState: Array<TruckGroupType> = [
     }
 ]
 
-export type truckGroupsReducerActionType = DeleteTruckGroupActionType
+export type TruckGroupsReducerActionType = DeleteTruckGroupActionType
     | AddTruckGroupActionType
     | ChangeTruckGroupTitleActionType
     | ChangeTruckGroupOrderActionType
@@ -76,7 +76,7 @@ export const changeTruckGroupOrderAC = (truckGroupId: string, order: number | nu
     } as const
 }
 
-export const truckGroupsReducer = (state:  Array<TruckGroupType> = truckGroupsInitialState, action: truckGroupsReducerActionType): Array<TruckGroupType> => {
+export const truckGroupsReducer = (state:  Array<TruckGroupType> = truckGroupsInitialState, action: TruckGroupsReducerActionType): Array<TruckGroupType> => {
     switch (action.type) {
         case 'DELETE_TRUCK_GROUP':
             return state.filter(el => el.id !== action.truckGroupId)

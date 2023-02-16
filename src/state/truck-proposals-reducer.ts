@@ -641,6 +641,13 @@ export const truckProposalsReducer = (state: TruckProposalsType = truckProposals
                 [action.date]: [...state[action.date].filter(el => el.id !== action.truckProposalId)]
             }
         case 'ADD_TRUCK_PROPOSAL':
+            console.log(action.truckId + ' truckId')
+            console.log(action.type + ' type')
+            console.log(action.date + ' date')
+            console.log(action.driver + ' driver')
+            console.log(action.departmentId + ' departmentId')
+            console.log(action.description + ' description')
+            console.log(action.highPriority + ' highPriority')
             let newProposal: TruckProposalType = {
                 id: v1(), /*айди*/
                 addedDate: new Date(), /*Дата*/
@@ -651,9 +658,14 @@ export const truckProposalsReducer = (state: TruckProposalsType = truckProposals
                 status: "new",
                 highPriority: action.highPriority
             }
-            return {
+            let proposals = state[action.date] && [...state[action.date]]
+            return proposals ? {
                 ...state,
-                [action.date]: [...state[action.date], newProposal]
+                [action.date]: [...proposals, newProposal]
+            } : {
+                ...state,
+                [action.date]: [newProposal]
+
             }
         case 'UPDATE_PROPOSAL_TRUCK':
             return {

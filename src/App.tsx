@@ -1,15 +1,20 @@
 import React, {useState} from 'react';
-import './App.css';
+import './App.scss';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import {WeekCalendar} from "./components/WeekCalendar/WeekCalendar";
 import {TruckCards} from "./components/TruckList/TruckCards";
+import {Modal} from "./components/common/Modal";
+import {TruckProposalForm} from "./components/TruckProposalForm/TruckProposalForm";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./state/store";
 
 
 
 function App() {
     let today = new Date()
     let [currentDate, setCurrentDate] = useState<Date>(today)
+    const isTruckProposalModalActive = useSelector<AppRootStateType, boolean>(state =>  state.truckProposalModal.isModalActive)
 
     const onCalendarChange = (date: Date) => {
         setCurrentDate(date)
@@ -46,7 +51,7 @@ function App() {
     }
 
     let [weekDays, setWeekDays] = useState<Date[]>(getCurrentWeekDays(today))
-
+    let [activeTruckProposalForm, setActiveTruckProposalForm] = useState<boolean>(true)
 
     return (
         <div className="App">
@@ -54,7 +59,10 @@ function App() {
 
             </header>
             <main className={'main'}>
+
                 <div className={'sidebar'}>
+                    {isTruckProposalModalActive && <TruckProposalForm/>}
+                    <TruckProposalForm/>
                     <Calendar className={'react-calendar'} onChange={onCalendarChange}/>
                     <TruckCards/>
                 </div>

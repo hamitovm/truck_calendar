@@ -1,10 +1,4 @@
 import {v1} from 'uuid'
-import {
-    addDepartmentAC, changeFullNameDepartmentAC,
-    changeShortNameDepartmentAC, departmentsInitialState, departmentsReducerActionType, DepartmentType,
-    returnFromArchiveDepartmentAC,
-    sendToArchiveDepartmentAC, setOrderDepartmentAC
-} from "./departments-reducer";
 
 export type TruckType = {
     id: string
@@ -129,7 +123,7 @@ export const truckListInitialState: Array<TruckType> = [
 
 export type ProposalStatuses = "ready" | "accepted" | 'rejected'
 
-export type truckCardsReducerActionType = DeleteTruckCardActionType
+export type TruckCardsReducerActionType = DeleteTruckCardActionType
     | AddTruckCardActionType
     | ChangeTruckCardGroupActionType
     | ChangeTruckCardTitleActionType
@@ -229,7 +223,7 @@ export const changeTruckCardArchivedValueAC = (truckId: string,
 //     } as const
 // }
 
-export const truckCardsReducer = (state:  Array<TruckType> = truckListInitialState, action: truckCardsReducerActionType): Array<TruckType> => {
+export const truckCardsReducer = (state:  Array<TruckType> = truckListInitialState, action: TruckCardsReducerActionType): Array<TruckType> => {
     switch (action.type) {
         case "DELETE_TRUCK_CARD":
             return state.filter(el => el.id !== action.truckId)

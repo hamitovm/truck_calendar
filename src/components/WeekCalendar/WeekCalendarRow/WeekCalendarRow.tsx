@@ -1,9 +1,12 @@
-import '../../../App.css'
-import React from "react";
+import '../../../App.scss'
+import React, {useState} from "react";
 import {DepartmentType} from "../../../state/departments-reducer";
 import {TruckProposalsType, TruckProposalType} from "../../../state/truck-proposals-reducer";
 import {TruckElement} from "./TruckElement";
 import {getDayMonthYear} from "../../../helpers/helpers";
+import {useAppDispatch} from "../../../state/hooks";
+import {openTruckProposalModalAC} from "../../../state/truck-proposal-modal-reducer";
+import {WeelCalendarCell} from "./WeekCalendarCell";
 
 export type WeekCalendarRowPropsType = {
     department: DepartmentType
@@ -12,6 +15,8 @@ export type WeekCalendarRowPropsType = {
 }
 
 export const WeekCalendarRow = (props: WeekCalendarRowPropsType) => {
+
+    let [proposalAdderActive, setProposalAdderActive] = useState<boolean>(false )
     // console.log(props.weekProposals)
     return (
         <div className={'truck_calendar_row'}>
@@ -23,10 +28,13 @@ export const WeekCalendarRow = (props: WeekCalendarRowPropsType) => {
                     )
                 })
                 return (
+                    // <div className={'item'} onMouseEnter={()=> setProposalAdderActive(true)} onMouseLeave={()=> setProposalAdderActive(false)}>
+                    //     {proposals && proposals.map(p => <TruckElement proposal={p}/>)}
+                    //     {proposalAdderActive && <span className={'addTruckProposalButton'} onClick={()=>onClickHandler(el, props.department)}>+</span>}
+                    // </div>
+                                <WeelCalendarCell proposals={proposals} date={el} department={props.department}/>
+                )
 
-                    <div className={'item'}>
-                        {proposals && proposals.map(p => <TruckElement proposal={p}/>)}
-                    </div>)
             })}
         </div>
     )

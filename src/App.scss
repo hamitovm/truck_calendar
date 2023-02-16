@@ -16,6 +16,7 @@
   max-width: 225px;
   border-right: 1px solid black;
 }
+
 .truck_calendar {
   display: flex;
   width: 100%;
@@ -52,6 +53,29 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.addTruckProposalButton {
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: bold;
+  border: 1px solid grey;
+  border-radius: 3px;
+  margin: 2px;
+  padding: 3px;
+  opacity: 0;
+}
+
+.addTruckProposalButton.active {
+  opacity: 1;
+}
+
+.addTruckProposalButton:hover {
+  background-color: grey;
+}
+
+.truck-proposal-form {
+  width: 300px;
 }
 
 

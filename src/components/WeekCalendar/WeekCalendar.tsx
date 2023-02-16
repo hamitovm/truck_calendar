@@ -1,17 +1,20 @@
 import {WeekCalendarRow} from "./WeekCalendarRow/WeekCalendarRow";
-import '../../App.css'
+import '../../App.scss'
 import {WeekCalendarHeader} from "./WeekCalendarHeader/WeekCalendarHeader";
 import {departmentsInitialState} from "../../state/departments-reducer";
 import {truckProposalsInitialState, TruckProposalsType, TruckProposalType} from "../../state/truck-proposals-reducer";
 import {getDayMonthYear} from "../../helpers/helpers";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../state/store";
 
 export type WeekCalendarPropsType = {
     weekDays: Date[]
 }
 
 export const WeekCalendar = (props: WeekCalendarPropsType) => {
+    let proposals = useSelector<AppRootStateType, TruckProposalsType>(state => state.truckProposals)
     const weekProposals: TruckProposalsType = props.weekDays.reduce((prev, date) => {
-        return {...prev, [getDayMonthYear(date)]: truckProposalsInitialState[getDayMonthYear(date)]}
+        return {...prev, [getDayMonthYear(date)]: proposals[getDayMonthYear(date)]}
     }, {})
 
     return (
