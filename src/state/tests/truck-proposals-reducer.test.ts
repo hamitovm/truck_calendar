@@ -11,7 +11,12 @@ import {
     updateProposalTruckAC,
     updateProposalDescriptionAC,
     updateProposalDateAC,
-    setHighPriorityAC, setLowPriorityAC, changeDriverAC,
+    setHighPriorityAC,
+    setLowPriorityAC,
+    changeDriverAC,
+    changeTruckProposalStatusToNewAC,
+    acceptTruckProposalAC,
+    rejectTruckProposalAC,
 
 } from "../truck-proposals-reducer";
 import {getDayMonthYear} from "../../helpers/helpers";
@@ -185,4 +190,29 @@ test('driver should be deleted in correct proposal', () => {
 
     expect(proposalToCheck && proposalToCheck.driver).toBe(null)
 })
+
+test('accept truck proposal', () => {
+    const endState = truckProposalsReducer(startState, acceptTruckProposalAC(getDayMonthYear(january1_2023),
+        proposalId1))
+    let proposalToCheck = endState[getDayMonthYear(january1_2023)].find(el => el.id === proposalId1)
+
+    expect(proposalToCheck && proposalToCheck.status).toBe('accepted')
+})
+
+test('reject truck proposal', () => {
+    const endState = truckProposalsReducer(startState, rejectTruckProposalAC(getDayMonthYear(january1_2023),
+        proposalId1))
+    let proposalToCheck = endState[getDayMonthYear(january1_2023)].find(el => el.id === proposalId1)
+
+    expect(proposalToCheck && proposalToCheck.status).toBe('rejected')
+})
+
+test('change truck proposal status to "new"', () => {
+    const endState = truckProposalsReducer(startState, changeTruckProposalStatusToNewAC(getDayMonthYear(january1_2023),
+        proposalId2))
+    let proposalToCheck = endState[getDayMonthYear(january1_2023)].find(el => el.id === proposalId2)
+
+    expect(proposalToCheck && proposalToCheck.status).toBe('new')
+})
+
 

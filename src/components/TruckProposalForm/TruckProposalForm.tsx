@@ -20,6 +20,7 @@ import {
 import {TruckType} from "../../state/truck-cards-reducer";
 import {Form, FormikProvider, useField, useFormik} from 'formik';
 import {addTruckProposalAC, TruckProposalsType, TruckProposalType} from "../../state/truck-proposals-reducer";
+import {NewModal} from "../common/newModal";
 
 type TruckProposalFormType = {}
 type FormikErrorType = {
@@ -36,19 +37,6 @@ type MySelectType = {
     name: string
     children: React.ReactNode
 }
-const MySelect = ({label, ...props}: MySelectType) => {
-    const [field, meta] = useField(props);
-    return (
-        <div>
-            <label htmlFor={props.id || props.name}>{label}</label>
-            <select {...field} {...props} />
-            {props.children}
-            {meta.touched && meta.error ? (
-                <div className="error">{meta.error}</div>
-            ) : null}
-        </div>
-    );
-};
 
 export const TruckProposalForm = (props: TruckProposalFormType) => {
     // console.log('in TruckProposalForm')
@@ -57,7 +45,7 @@ export const TruckProposalForm = (props: TruckProposalFormType) => {
     const date = useSelector<AppRootStateType, Date | null>(state => state.truckProposalModal.date)
     const department = useSelector<AppRootStateType, DepartmentType | null>(state => state.truckProposalModal.department)
     const isModalActive = useSelector<AppRootStateType, boolean>(state => state.truckProposalModal.isModalActive)
-    const closeModal = (value: boolean) => {
+    const closeModal = () => {
         dispatch(closeTruckProposalModalAC())
     }
     const trucks = useSelector<AppRootStateType, Array<TruckType>>(state => state.truckCards)
@@ -102,10 +90,11 @@ export const TruckProposalForm = (props: TruckProposalFormType) => {
     })
     console.log(formik.values)
 
-
     return (
         <div>
-            <Modal active={isModalActive} setActive={closeModal}>
+            <NewModal title={'Add truck proposal'} isOpen={isModalActive} onCancel={closeModal}>
+
+            {/*<Modal active={isModalActive} setActive={closeModal}>*/}
                 <div>{date && getDayMonthYear(date)}</div>
                 <div>{department && department.shortName}</div>
                 <FormikProvider value={formik}>
@@ -153,8 +142,8 @@ export const TruckProposalForm = (props: TruckProposalFormType) => {
                     </FormControl>
 
                 </FormikProvider>
-
-            </Modal>
+            {/*</Modal>*/}
+            </NewModal>
         </div>
     )
 }

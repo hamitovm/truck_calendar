@@ -516,12 +516,10 @@ export type TruckProposalsActionType = DeleteTruckProposalACType
     | SetHighPriorityACType
     | SetLowPriorityACType
     | ChangeDriverACType
-    // | UpdateTruckProposalDescriptionACType
-    // | UpdateTruckProposalDateACType
-    // | UpdateTruckProposalPriorityACType
-    // | UpdateTruckProposalDriverACType
-    // | AcceptTruckProposalACType
-    // | RejectTruckProposalACType
+    | AcceptTruckProposalACType
+    | RejectTruckProposalACType
+    | ChangeTruckProposalStatusToNewACType
+
 
 type DeleteTruckProposalACType = {
     type: 'DELETE_TRUCK_PROPOSAL',
@@ -570,6 +568,21 @@ type ChangeDriverACType = {
     date: string,
     truckProposalId: string,
     driver: string | null,
+}
+type AcceptTruckProposalACType = {
+    type: 'ACCEPT_TRUCK_PROPOSAL',
+    date: string,
+    truckProposalId: string
+}
+type RejectTruckProposalACType = {
+    type: 'REJECT_TRUCK_PROPOSAL',
+    date: string,
+    truckProposalId: string
+}
+type ChangeTruckProposalStatusToNewACType = {
+    type: 'CHANGE_TRUCK_PROPOSAL_STATUS_TO_NEW',
+    date: string,
+    truckProposalId: string
 }
 
 //Action creators==========================================
@@ -629,6 +642,21 @@ export const changeDriverAC = (date: string,truckProposalId: string, driver: str
     date,
     truckProposalId,
     driver
+})
+export const acceptTruckProposalAC = (date: string,truckProposalId: string): AcceptTruckProposalACType => ({
+    type: "ACCEPT_TRUCK_PROPOSAL",
+    date,
+    truckProposalId
+})
+export const rejectTruckProposalAC = (date: string,truckProposalId: string): RejectTruckProposalACType => ({
+    type: "REJECT_TRUCK_PROPOSAL",
+    date,
+    truckProposalId
+})
+export const changeTruckProposalStatusToNewAC = (date: string,truckProposalId: string): ChangeTruckProposalStatusToNewACType => ({
+    type: "CHANGE_TRUCK_PROPOSAL_STATUS_TO_NEW",
+    date,
+    truckProposalId
 })
 
 
@@ -736,6 +764,39 @@ export const truckProposalsReducer = (state: TruckProposalsType = truckProposals
                         {
                             ...el,
                             driver: action.driver
+                        } : el
+                })]
+            }
+        case 'ACCEPT_TRUCK_PROPOSAL':
+            return {
+                ...state,
+                [action.date]: [...state[action.date].map(el => {
+                    return el.id === action.truckProposalId ?
+                        {
+                            ...el,
+                            status: <ProposalStatuses>'accepted'
+                        } : el
+                })]
+            }
+        case 'REJECT_TRUCK_PROPOSAL':
+            return {
+                ...state,
+                [action.date]: [...state[action.date].map(el => {
+                    return el.id === action.truckProposalId ?
+                        {
+                            ...el,
+                            status: <ProposalStatuses>'rejected'
+                        } : el
+                })]
+            }
+        case 'CHANGE_TRUCK_PROPOSAL_STATUS_TO_NEW':
+            return {
+                ...state,
+                [action.date]: [...state[action.date].map(el => {
+                    return el.id === action.truckProposalId ?
+                        {
+                            ...el,
+                            status: <ProposalStatuses>'new'
                         } : el
                 })]
             }

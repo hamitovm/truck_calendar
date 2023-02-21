@@ -78,5 +78,78 @@
   width: 300px;
 }
 
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  //visibility: hidden;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 2;
+  visibility: visible;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: 1s;
+}
+
+.modal_content-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal1__content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 40px;
+  color: black;
+  background-color: white;
+  border-radius: 3px;
+
+}
+.modal__close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.modal__header {
+  padding: 0;
+  margin: 0;
+
+}
+
+.truck-proposal__element {
+  display: inline-block;
+  position: relative;
+}
+.truck-proposal__chip {
+  font-size: 12px;
+}
+
+
+.chip-controls {
+  width: 320px;
+  margin-top: 2px;
+  position: absolute;
+  right: 0px;
+  //bottom: -5px;
+
+  //width: 20px;
+  //height: 20px;
+  //background-color: black;
+}
+
+.chip-controls__menu {
+  width: 320px;
+}
+
 
 

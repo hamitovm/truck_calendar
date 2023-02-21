@@ -8,6 +8,7 @@ import {Modal} from "./components/common/Modal";
 import {TruckProposalForm} from "./components/TruckProposalForm/TruckProposalForm";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
+import {NewModal} from "./components/common/newModal";
 
 
 
@@ -52,6 +53,7 @@ function App() {
 
     let [weekDays, setWeekDays] = useState<Date[]>(getCurrentWeekDays(today))
     let [activeTruckProposalForm, setActiveTruckProposalForm] = useState<boolean>(true)
+    let [newModalIsOpen, setNewModalIsOpen] = useState<boolean>(false)
 
     return (
         <div className="App">
@@ -65,6 +67,15 @@ function App() {
                     <TruckProposalForm/>
                     <Calendar className={'react-calendar'} onChange={onCalendarChange}/>
                     <TruckCards/>
+                    <NewModal title={'New title'}
+                              isOpen={newModalIsOpen}
+                              onCancel={()=> setNewModalIsOpen(false)}
+                              onSubmit={()=> setNewModalIsOpen(false)}>
+                        <p>Some text</p>
+                    </NewModal>
+                    <button onClick={()=>setNewModalIsOpen(true)}>
+                        Open New Modal
+                    </button>
                 </div>
                 <WeekCalendar weekDays={weekDays}/>
             </main>
