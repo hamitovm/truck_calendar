@@ -13,13 +13,18 @@
 }
 
 .sidebar {
-  max-width: 225px;
+  //box-sizing: border-box;
+  //max-width: calc(15vw - 10px);
+  max-width: 15vw;
+  min-width: 150px;
   border-right: 1px solid black;
 }
 
 .truck_calendar {
+  box-sizing: border-box;
+
   display: flex;
-  width: 100%;
+  width: 85vw;
   flex-direction: column;
 }
 
@@ -30,14 +35,18 @@
 }
 
 .item {
+
   /*display: flex;*/
   /*flex-wrap: wrap;*/
   /*margin: 0 auto;*/
+  flex-shrink: 0;
+  width: 10vw;
   font-size: 20px;
   font-weight: 700;
   padding: 5px;
   min-height: 50px;
-  border: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .truck_element {

@@ -3,12 +3,11 @@ import './App.scss';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import {WeekCalendar} from "./components/WeekCalendar/WeekCalendar";
-import {TruckCards} from "./components/TruckList/TruckCards";
-import {Modal} from "./components/common/Modal";
 import {TruckProposalForm} from "./components/TruckProposalForm/TruckProposalForm";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
-import {NewModal} from "./components/common/newModal";
+import {TruckGroupList} from "./components/TruckGroupList/TruckGroupList";
+import {TruckGroupType} from "./state/truck-groups-reducer";
 
 
 
@@ -16,6 +15,7 @@ function App() {
     let today = new Date()
     let [currentDate, setCurrentDate] = useState<Date>(today)
     const isTruckProposalModalActive = useSelector<AppRootStateType, boolean>(state =>  state.truckProposalModal.isModalActive)
+    const truckGroups = useSelector<AppRootStateType, Array<TruckGroupType>>(state =>  state.truckGroups)
 
     const onCalendarChange = (date: Date) => {
         setCurrentDate(date)
@@ -66,16 +66,17 @@ function App() {
                     {isTruckProposalModalActive && <TruckProposalForm/>}
                     <TruckProposalForm/>
                     <Calendar className={'react-calendar'} onChange={onCalendarChange}/>
-                    <TruckCards/>
-                    <NewModal title={'New title'}
-                              isOpen={newModalIsOpen}
-                              onCancel={()=> setNewModalIsOpen(false)}
-                              onSubmit={()=> setNewModalIsOpen(false)}>
-                        <p>Some text</p>
-                    </NewModal>
-                    <button onClick={()=>setNewModalIsOpen(true)}>
-                        Open New Modal
-                    </button>
+                    {/*<TruckCards/>*/}
+                    {/*<NewModal title={'New title'}*/}
+                    {/*          isOpen={newModalIsOpen}*/}
+                    {/*          onCancel={()=> setNewModalIsOpen(false)}*/}
+                    {/*          onSubmit={()=> setNewModalIsOpen(false)}>*/}
+                    {/*    <p>Some text</p>*/}
+                    {/*</NewModal>*/}
+                    {/*<button onClick={()=>setNewModalIsOpen(true)}>*/}
+                    {/*    Open New Modal*/}
+                    {/*</button>*/}
+                    <TruckGroupList truckGroups={truckGroups}/>
                 </div>
                 <WeekCalendar weekDays={weekDays}/>
             </main>

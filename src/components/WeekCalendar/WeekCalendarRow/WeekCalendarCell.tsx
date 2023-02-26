@@ -5,6 +5,9 @@ import {DepartmentType} from "../../../state/departments-reducer";
 import {useAppDispatch} from "../../../state/hooks";
 import {openTruckProposalModalAC} from "../../../state/truck-proposal-modal-reducer";
 import {Chip} from "@mui/material";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../../state/store";
+import {TruckType} from "../../../state/truck-cards-reducer";
 
 type WeelCalendarCellPropsType = {
     proposals: Array<TruckProposalType> | null
@@ -14,6 +17,11 @@ type WeelCalendarCellPropsType = {
 }
 export const WeelCalendarCell = (props: WeelCalendarCellPropsType) => {
     const dispatch = useAppDispatch()
+    let trucks = useSelector<AppRootStateType, Array<TruckType>>(state => state.truckCards)
+    let proposalsToShow = props.proposals && props.proposals.filter(el => {
+        let truckToCheck: TruckType | undefined = trucks.find(tr => tr.id === el.truckId)
+        return truckToCheck && truckToCheck.showInCalendar
+    })
 
     const onClickHandler = (date: Date, department: DepartmentType) => {
         dispatch(openTruckProposalModalAC(date,department))
@@ -23,7 +31,7 @@ export const WeelCalendarCell = (props: WeelCalendarCellPropsType) => {
 
     return (
         <div className={'item'} onMouseEnter={()=> setProposalAdderActive(true)} onMouseLeave={()=> setProposalAdderActive(false)}>
-            {props.proposals && props.proposals.map(p => <TruckElement proposal={p} date={props.date}/>)}
+            {proposalsToShow && proposalsToShow.map(p => <TruckElement key={p.id} proposal={p} date={props.date}/>)}
             {/*<span className={proposalAdderActive ? 'addTruckProposalButton active' : 'addTruckProposalButton'} onClick={()=>onClickHandler(props.date, props.department)}>+</span>*/}
             <Chip label={'+'} variant="outlined" size="small"
                   className={proposalAdderActive ? 'addTruckProposalButton active': 'addTruckProposalButton'}

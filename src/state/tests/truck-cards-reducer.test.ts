@@ -4,8 +4,12 @@ import {
     addTruckCardAC,
     changeTruckCardArchivedValueAC,
     changeTruckCardGroupAC,
-    changeTruckCardLocationAC, changeTruckCardStateNumberAC,
-    changeTruckCardTitleAC, deleteTruckCardAC,
+    changeTruckCardLocationAC,
+    changeTruckCardShowValueByGroupIdAC,
+    changeTruckCardShowValueByTruckIdAC,
+    changeTruckCardStateNumberAC,
+    changeTruckCardTitleAC,
+    deleteTruckCardAC,
     truckCardsReducer,
     TruckType
 } from "../truck-cards-reducer";
@@ -46,7 +50,8 @@ beforeEach(() => {
             stateNumber: 'А637АА716',
             description: '',
             truckLocation: 'ЗРЭС',
-            archived: false
+            archived: false,
+            showInCalendar: true
         },
         {
             id: truckId2,
@@ -55,7 +60,8 @@ beforeEach(() => {
             stateNumber: 'Н606АА716',
             description: '',
             truckLocation: 'ВРЭС',
-            archived: false
+            archived: false,
+            showInCalendar: true
         },
         {
             id: truckId3,
@@ -64,7 +70,8 @@ beforeEach(() => {
             stateNumber: 'Н7899АА716',
             description: '',
             truckLocation: 'ЛРЭС',
-            archived: false
+            archived: false,
+            showInCalendar: true
         },
         {
             id: truckId4,
@@ -73,7 +80,8 @@ beforeEach(() => {
             stateNumber: 'К211ММ716',
             description: '',
             truckLocation: 'АРЭС',
-            archived: false
+            archived: false,
+            showInCalendar: false
         }]
 })
 
@@ -154,6 +162,52 @@ test('truck card location should be changed', () => {
 
     expect(endState.length).toBe(startState.length)
     expect(addedCard && addedCard.truckLocation).toBe(newLocation)
+})
+
+
+test('truck card show in calendar value should be changed to false by truck id', () => {
+    const endState: Array<TruckType> = truckCardsReducer(startState,
+        changeTruckCardShowValueByTruckIdAC(truckId3, false))
+    const addedCard = endState.find(el => el.id === truckId3)
+
+
+    expect(endState.length).toBe(startState.length)
+    expect(addedCard && addedCard.showInCalendar).toBe(false)
+})
+
+
+
+test('truck card show in calendar value should be changed to true by truck id', () => {
+    const endState: Array<TruckType> = truckCardsReducer(startState,
+        changeTruckCardShowValueByTruckIdAC(truckId4, true))
+    const addedCard = endState.find(el => el.id === truckId4)
+
+
+    expect(endState.length).toBe(startState.length)
+    expect(addedCard && addedCard.showInCalendar).toBe(true)
+})
+
+
+test('truck card show in calendar value should be changed to false by group id', () => {
+    const endState: Array<TruckType> = truckCardsReducer(startState,
+        changeTruckCardShowValueByGroupIdAC(truckGroupId3, false))
+    const addedCard = endState.find(el => el.id === truckId3)
+
+
+    expect(endState.length).toBe(startState.length)
+    expect(addedCard && addedCard.showInCalendar).toBe(false)
+})
+
+
+
+test('truck card show in calendar value should be changed to true by group id', () => {
+    const endState: Array<TruckType> = truckCardsReducer(startState,
+        changeTruckCardShowValueByGroupIdAC(truckGroupId3, true))
+    const addedCard = endState.find(el => el.id === truckId4)
+
+
+    expect(endState.length).toBe(startState.length)
+    expect(addedCard && addedCard.showInCalendar).toBe(true)
 })
 
 // test('truck card readyToGo value should be changed to false', () => {

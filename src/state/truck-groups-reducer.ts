@@ -4,7 +4,7 @@ import {TruckType} from "./truck-cards-reducer";
 export type TruckGroupType = {
     id: string
     title: string
-    order: number | null
+    // order: number | null
 }
 
 export let truckGroupId1 = v1()
@@ -17,22 +17,22 @@ export const truckGroupsInitialState: Array<TruckGroupType> = [
     {
         id: truckGroupId1,
         title: 'РПН, вышки',
-        order: 1
+        // order: 1
     },
     {
         id: truckGroupId2,
         title: 'КМУ',
-        order: 2
+        // order: 2
     },
     {
         id: truckGroupId3,
         title: 'БКМ',
-        order: 3
+        // order: 3
     },
     {
         id: truckGroupId4,
         title: 'остальное',
-        order: null
+        // order: null
     }
 ]
 
@@ -84,18 +84,18 @@ export const truckGroupsReducer = (state:  Array<TruckGroupType> = truckGroupsIn
             return [...state, {
                 id: v1(),
                 title: action.title,
-                order: null
+                // order: null
             }]
         case 'CHANGE_TRUCK_GROUP_TITLE':
             return state.map(el => el.id === action.truckGroupId ? {
                 ...el,
                 title: action.title
             } : el)
-        case 'CHANGE_TRUCK_GROUP_ORDER':
-            return state.map(el => el.id === action.truckGroupId ? {
-                ...el,
-                order: action.order
-            } : el)
+        // case 'CHANGE_TRUCK_GROUP_ORDER':
+        //     return state.map(el => el.id === action.truckGroupId ? {
+        //         ...el,
+        //         order: action.order
+        //     } : el)
         default:
             return state
     }

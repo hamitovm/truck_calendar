@@ -29,22 +29,22 @@ beforeEach(() => {
         {
             id: truckGroupId1,
             title: 'РПН, вышки',
-            order: 1
+            // order: 1
         },
         {
             id: truckGroupId2,
             title: 'КМУ',
-            order: 2
+            // order: 2
         },
         {
             id: truckGroupId3,
             title: 'БКМ',
-            order: 3
+            // order: 3
         },
         {
             id: truckGroupId4,
             title: 'остальное',
-            order: null
+            // order: null
         }
     ]
 })
@@ -76,10 +76,10 @@ test('correct truck group should change name', () => {
     expect(endState[0].title).toBe(newTitle)
 })
 
-test('correct truck group should change order', () => {
-    const newOrder = 1
-    const endState: Array<TruckGroupType> = truckGroupsReducer(startState, changeTruckGroupOrderAC(truckGroupId2, newOrder))
-
-    expect(endState.length).toBe(startState.length)
-    expect(endState[1].order).toBe(newOrder)
-})
+// test('correct truck group should change order', () => {
+//     const newOrder = 1
+//     const endState: Array<TruckGroupType> = truckGroupsReducer(startState, changeTruckGroupOrderAC(truckGroupId2, newOrder))
+//
+//     expect(endState.length).toBe(startState.length)
+//     expect(endState[1].order).toBe(newOrder)
+// })
