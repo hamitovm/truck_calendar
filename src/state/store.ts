@@ -6,6 +6,7 @@ import {truckCardsReducer, TruckCardsReducerActionType} from "./truck-cards-redu
 import {truckGroupsReducer, TruckGroupsReducerActionType} from "./truck-groups-reducer";
 import {TruckProposalsActionType, truckProposalsReducer} from "./truck-proposals-reducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {ProposalsFilterActionType, proposalsFilterReducer} from "./proposals-filter-reducer";
 
 
 //Комбинируются разные редюсеры в один, в качестве свойства - ветка стейта, для которой редюсер предназначен
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
     truckCards: truckCardsReducer,
     truckGroups: truckGroupsReducer,
     truckProposals: truckProposalsReducer,
+    proposalsFilter: proposalsFilterReducer,
 })
 //автоматическая типизация стейта через ReturnType<typeof --->
 export type AppRootStateType = ReturnType<typeof rootReducer>
@@ -35,6 +37,7 @@ export type ActionType = AppActionsType
     | TruckGroupsReducerActionType
     | TruckProposalModalReducerActionType
     | TruckProposalsActionType
+    | ProposalsFilterActionType
 //Типизация того, что может приниматься диспатчем - из документации https://redux.js.org/usage/usage-with-typescript
 export type AppDispatch = ThunkDispatch<RootState, unknown, ActionType>
 export type RootState = ReturnType<typeof store.getState>

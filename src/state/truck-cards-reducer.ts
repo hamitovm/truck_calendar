@@ -4,7 +4,7 @@ import {truckGroupId1, truckGroupId2, truckGroupId3, truckGroupId4} from './truc
 export type TruckDomainType = {
     id: string
     title: string
-    truckGroupId: string | null
+    truckGroupId: string
     stateNumber: string
     description: string | null
     truckLocation: string

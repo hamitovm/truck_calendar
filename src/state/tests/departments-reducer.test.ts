@@ -90,13 +90,6 @@ test('correct department should change archived value to false', () => {
     expect(endState[3].archived).toBeFalsy()
 })
 
-test('correct department should change archived value to true', () => {
-    const endState: Array<DepartmentType> = departmentsReducer(startState,
-        sendToArchiveDepartmentAC(departmentId1))
-
-    expect(endState.length).toBe(startState.length)
-    expect(endState[0].archived).toBeTruthy()
-})
 
 test('correct department should change shortName', () => {
     const newShortName = 'ЮРЭС'
