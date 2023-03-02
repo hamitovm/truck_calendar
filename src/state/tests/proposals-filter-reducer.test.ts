@@ -1,8 +1,7 @@
 import {
-    addNotToShowGroupAC,
-    addNotToShowTruckAC,
-    changeShowNewProposalsValueAC, changeShowRejectedProposalsValueAC, deleteNotToShowGroupAC,
-    deleteNotToShowTruckAC, proposalsFilterReducer,
+    addNotToShowTrucksAC,
+    changeShowNewProposalsValueAC, changeShowRejectedProposalsValueAC,
+    deleteNotToShowTrucksAC, proposalsFilterReducer,
     ProposalsFilterType
 } from "../proposals-filter-reducer";
 
@@ -12,7 +11,6 @@ beforeEach(()=> {
     startState = {
         showRejectedProposals: false,
         showNewProposals: true,
-        groupsNotToShow: ['groupId1', 'groupId2', 'groupId3', 'groupId4'],
         trucksNotToShow:  ['truckId1', 'truckId2', 'truckId3', 'truckId4']
     }
 })
@@ -26,7 +24,6 @@ test('hide rejected proposals', () => {
     let newStartState: ProposalsFilterType = {
         showRejectedProposals: true,
         showNewProposals: true,
-        groupsNotToShow: [],
         trucksNotToShow: []
     }
     const endState: ProposalsFilterType = proposalsFilterReducer(newStartState, changeShowRejectedProposalsValueAC(false))
@@ -42,36 +39,22 @@ test('show new proposals', () => {
     let newStartState: ProposalsFilterType = {
         showRejectedProposals: true,
         showNewProposals: false,
-        groupsNotToShow: [],
         trucksNotToShow: []
     }
     const endState: ProposalsFilterType = proposalsFilterReducer(newStartState, changeShowNewProposalsValueAC(true))
     expect(endState.showRejectedProposals).toBeTruthy()
 })
 
-
-test('add truck group to hide', () => {
-    const endState: ProposalsFilterType = proposalsFilterReducer(startState, addNotToShowGroupAC('groupId5'))
-    expect(endState.groupsNotToShow.length).toBe(startState.groupsNotToShow.length + 1)
-    expect(endState.groupsNotToShow.includes('groupId5')).toBeTruthy()
-})
-
-test('delete truck group from hided trucks', () => {
-    const endState: ProposalsFilterType = proposalsFilterReducer(startState, deleteNotToShowGroupAC('groupId1'))
-    expect(endState.groupsNotToShow.length).toBe(startState.groupsNotToShow.length - 1)
-    expect(endState.groupsNotToShow.includes('groupId1')).toBeFalsy()
-})
-
-
-
 test('add truck to hide', () => {
-    const endState: ProposalsFilterType = proposalsFilterReducer(startState, addNotToShowTruckAC('truckId5'))
-    expect(endState.trucksNotToShow.length).toBe(startState.groupsNotToShow.length + 1)
+    const endState: ProposalsFilterType = proposalsFilterReducer(startState, addNotToShowTrucksAC(['truckId5', 'truckId6']))
+    expect(endState.trucksNotToShow.length).toBe(startState.trucksNotToShow.length + 2)
     expect(endState.trucksNotToShow.includes('truckId5')).toBeTruthy()
+    expect(endState.trucksNotToShow.includes('truckId6')).toBeTruthy()
 })
 
 test('delete truck from hided trucks', () => {
-    const endState: ProposalsFilterType = proposalsFilterReducer(startState, deleteNotToShowTruckAC('truckId1'))
-    expect(endState.trucksNotToShow.length).toBe(startState.groupsNotToShow.length - 1)
+    const endState: ProposalsFilterType = proposalsFilterReducer(startState, deleteNotToShowTrucksAC(['truckId1', 'truckId2']))
+    expect(endState.trucksNotToShow.length).toBe(startState.trucksNotToShow.length - 2)
     expect(endState.trucksNotToShow.includes('groupId1')).toBeFalsy()
+    expect(endState.trucksNotToShow.includes('groupId2')).toBeFalsy()
 })

@@ -17,6 +17,7 @@ import {TruckProposalsType} from "../../state/truck-proposals-reducer";
 import {changeTruckCardShowValueByGroupIdAC, TruckType} from "../../state/truck-cards-reducer";
 import {TruckGroupElementInner} from "./TruckGroupElementInner";
 import {useAppDispatch} from "../../state/hooks";
+import {addNotToShowTrucksAC, deleteNotToShowTrucksAC} from "../../state/proposals-filter-reducer";
 
 type TruckGroupElementType = {
     truckGroup: TruckGroupType
@@ -24,18 +25,18 @@ type TruckGroupElementType = {
 
 export const TruckGroupElement = (props: TruckGroupElementType) => {
     const dispatch = useAppDispatch()
-    // let [groupChecked, setGroupChecked] = useState<boolean>(true)
     let [isOpen, setIsOpen] = useState<boolean>(false)
     const labelId = `checkbox-list-label-${props.truckGroup.id}`;
     let trucks = useSelector<AppRootStateType, Array<TruckType>>(state => state.truckCards).filter(el => el.truckGroupId === props.truckGroup.id)
+    let trucksNotToShow = useSelector<AppRootStateType, string[]>(state => state.proposalsFilter.trucksNotToShow)
 
 
-    const checkTrucksShowValue = (trucks: Array<TruckType>, truckGroupId: string) => {
+    const checkTrucksShowValue = (trucks: Array<TruckType>,trucksNotToShow: Array<string>, truckGroupId: string) => {
         let trucksInGroup = 0
         let trucksToShow = 0
         trucks.forEach(el => {
             el.truckGroupId === truckGroupId && trucksInGroup++
-            el.truckGroupId === truckGroupId && el.showInCalendar && trucksToShow++
+            el.truckGroupId === truckGroupId && !trucksNotToShow.includes(el.id) && trucksToShow++
         })
         if (trucksToShow === 0) {
             return false
@@ -43,9 +44,11 @@ export const TruckGroupElement = (props: TruckGroupElementType) => {
             return true
         } else return undefined
     }
-    const groupChecked: boolean | undefined = checkTrucksShowValue(trucks, props.truckGroup.id)
+    const groupChecked: boolean | undefined = checkTrucksShowValue(trucks, trucksNotToShow, props.truckGroup.id)
     const onCheckBoxChange = () => {
-        dispatch(changeTruckCardShowValueByGroupIdAC(props.truckGroup.id, !groupChecked))
+        const trucksId = trucks.map(el => el.id)
+        groupChecked ? dispatch(addNotToShowTrucksAC(trucksId))
+            : dispatch(deleteNotToShowTrucksAC(trucksId))
     }
     return (
         <div key={props.truckGroup.id}>

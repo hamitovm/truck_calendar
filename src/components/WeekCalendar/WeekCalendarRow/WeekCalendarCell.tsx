@@ -17,11 +17,8 @@ type WeelCalendarCellPropsType = {
 }
 export const WeelCalendarCell = (props: WeelCalendarCellPropsType) => {
     const dispatch = useAppDispatch()
-    let trucks = useSelector<AppRootStateType, Array<TruckType>>(state => state.truckCards)
-    let proposalsToShow = props.proposals && props.proposals.filter(el => {
-        let truckToCheck: TruckType | undefined = trucks.find(tr => tr.id === el.truckId)
-        return truckToCheck && truckToCheck.showInCalendar
-    })
+    const trucksNotToShow = useSelector<AppRootStateType, string[]>(state => state.proposalsFilter.trucksNotToShow)
+    let proposalsToShow = props.proposals && props.proposals.filter(el => !trucksNotToShow.includes(el.truckId))
 
     const onClickHandler = (date: Date, department: DepartmentType) => {
         dispatch(openTruckProposalModalAC(date,department))

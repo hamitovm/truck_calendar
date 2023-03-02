@@ -3,30 +3,24 @@ import {deleteTruckCardAC} from "./truck-cards-reducer";
 export type ProposalsFilterType = {
     showRejectedProposals: boolean
     showNewProposals: boolean
-    groupsNotToShow: Array<string>
     trucksNotToShow: Array<string>
 }
 
 export const ProposalsFilterInitialState = {
     showRejectedProposals: false,
     showNewProposals: true,
-    groupsNotToShow: [],
     trucksNotToShow: []
 }
 
 export type ProposalsFilterActionType = ChangeShowRejectedProposalsValueActionType
     | ChangeShowNewProposalsValueActionType
-    | AddNotToShowGroupActionType
-    | DeleteNotToShowGroupActionType
-    | AddNotToShowTruckActionType
-    | DeleteNotToShowTruckActionType
+    | AddNotToShowTrucksActionType
+    | DeleteNotToShowTrucksActionType
 
 export type ChangeShowRejectedProposalsValueActionType = ReturnType<typeof changeShowRejectedProposalsValueAC>
 export type ChangeShowNewProposalsValueActionType = ReturnType<typeof changeShowNewProposalsValueAC>
-export type AddNotToShowGroupActionType = ReturnType<typeof addNotToShowGroupAC>
-export type DeleteNotToShowGroupActionType = ReturnType<typeof deleteNotToShowGroupAC>
-export type AddNotToShowTruckActionType = ReturnType<typeof addNotToShowTruckAC>
-export type DeleteNotToShowTruckActionType = ReturnType<typeof deleteNotToShowTruckAC>
+export type AddNotToShowTrucksActionType = ReturnType<typeof addNotToShowTrucksAC>
+export type DeleteNotToShowTrucksActionType = ReturnType<typeof deleteNotToShowTrucksAC>
 
 export const changeShowRejectedProposalsValueAC = (newValue: boolean) => {
     return {
@@ -40,28 +34,16 @@ export const changeShowNewProposalsValueAC = (newValue: boolean) => {
         newValue
     } as const
 }
-export const addNotToShowGroupAC = (groupId: string) => {
+export const addNotToShowTrucksAC = (trucksId: string[]) => {
     return {
-        type: "ADD_NOT_TO_SHOW_GROUP",
-        groupId
+        type: "ADD_NOT_TO_SHOW_TRUCKS",
+        trucksId
     } as const
 }
-export const deleteNotToShowGroupAC = (groupId: string) => {
+export const deleteNotToShowTrucksAC = (trucksId: string[]) => {
     return {
-        type: "DELETE_NOT_TO_SHOW_GROUP",
-        groupId
-    } as const
-}
-export const addNotToShowTruckAC = (truckId: string) => {
-    return {
-        type: "ADD_NOT_TO_SHOW_TRUCK",
-        truckId
-    } as const
-}
-export const deleteNotToShowTruckAC = (truckId: string) => {
-    return {
-        type: "DELETE_NOT_TO_SHOW_TRUCK",
-        truckId
+        type: "DELETE_NOT_TO_SHOW_TRUCKS",
+        trucksId
     } as const
 }
 
@@ -78,25 +60,15 @@ export const proposalsFilterReducer = (state: ProposalsFilterType = ProposalsFil
                 ...state,
                 showNewProposals: action.newValue
             }
-        case "ADD_NOT_TO_SHOW_GROUP":
+        case "ADD_NOT_TO_SHOW_TRUCKS":
             return {
                 ...state,
-                groupsNotToShow: [...state.groupsNotToShow, action.groupId]
+                trucksNotToShow: [...state.trucksNotToShow, ...action.trucksId]
             }
-        case "DELETE_NOT_TO_SHOW_GROUP":
+        case "DELETE_NOT_TO_SHOW_TRUCKS":
             return {
                 ...state,
-                groupsNotToShow: state.groupsNotToShow.filter(el => el !== action.groupId)
-            }
-        case "ADD_NOT_TO_SHOW_TRUCK":
-            return {
-                ...state,
-                trucksNotToShow: [...state.trucksNotToShow, action.truckId]
-            }
-        case "DELETE_NOT_TO_SHOW_TRUCK":
-            return {
-                ...state,
-                trucksNotToShow: state.trucksNotToShow.filter(el => el !== action.truckId)
+                trucksNotToShow: state.trucksNotToShow.filter(el => !action.trucksId.includes(el))
             }
         default:
             return state

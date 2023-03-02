@@ -4,7 +4,10 @@ import {changeTruckCardShowValueByTruckIdAC, TruckType} from "../../state/truck-
 import {useAppDispatch} from "../../state/hooks";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../state/store";
-import {ProposalsFilterType} from "../../state/proposals-filter-reducer";
+import {addNotToShowTrucksAC,
+    deleteNotToShowTrucksAC,
+    ProposalsFilterType
+} from "../../state/proposals-filter-reducer";
 
 export type TruckGroupElementInnerType = {
     truck: TruckType
@@ -12,11 +15,12 @@ export type TruckGroupElementInnerType = {
 
 export const TruckGroupElementInner = (props: TruckGroupElementInnerType) => {
     const dispatch = useAppDispatch()
-    const proposalFilters = useSelector<AppRootStateType, ProposalsFilterType>(state => state.proposalsFilter)
-    const truckCheckedValue = !proposalFilters.groupsNotToShow.includes(props.truck.truckGroupId) && !proposalFilters.trucksNotToShow.includes(props.truck.id)
+    const trucksNotToShow = useSelector<AppRootStateType, string[]>(state => state.proposalsFilter.trucksNotToShow)
+    const truckCheckedValue = !trucksNotToShow.includes(props.truck.id)
+    console.log(trucksNotToShow)
     const onCheckboxChange = () => {
-        // dispatch(changeTruckCardShowValueByTruckIdAC(props.truck.id, !props.truck.showInCalendar))
-        // truckCheckedValue ? dispatch()
+        truckCheckedValue ? dispatch(addNotToShowTrucksAC([props.truck.id]))
+            : dispatch(deleteNotToShowTrucksAC([props.truck.id]))
     }
     return (
         <List component="div"
