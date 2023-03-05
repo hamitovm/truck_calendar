@@ -1,5 +1,5 @@
 
-import {TruckGroupType} from "../../state/truck-groups-reducer";
+import {TruckGroupType} from "../../../state/truck-groups-reducer";
 import {TruckGroupElement} from "./TruckGroupElement";
 
 type TruckGroupListType = {
@@ -9,7 +9,7 @@ export const TruckGroupList = (props: TruckGroupListType) => {
 
     return (
         <div>
-            <h3>Truck groups</h3>
+            <h4>Truck groups</h4>
             {props.truckGroups.map(el => {
                 return (
                     <TruckGroupElement truckGroup={el}/>

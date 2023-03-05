@@ -1,23 +1,13 @@
-import {
-    Checkbox,
-    Collapse,
-    IconButton,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText
-} from "@mui/material";
-import {KeyboardArrowRight, KeyboardArrowUp, StarBorder} from "@mui/icons-material";
+import {Checkbox, Collapse, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {KeyboardArrowRight, KeyboardArrowUp} from "@mui/icons-material";
 import {useState} from "react";
-import {TruckGroupType} from "../../state/truck-groups-reducer";
+import {TruckGroupType} from "../../../state/truck-groups-reducer";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../state/store";
-import {TruckProposalsType} from "../../state/truck-proposals-reducer";
-import {changeTruckCardShowValueByGroupIdAC, TruckType} from "../../state/truck-cards-reducer";
+import {AppRootStateType} from "../../../state/store";
+import {TruckType} from "../../../state/truck-cards-reducer";
 import {TruckGroupElementInner} from "./TruckGroupElementInner";
-import {useAppDispatch} from "../../state/hooks";
-import {addNotToShowTrucksAC, deleteNotToShowTrucksAC} from "../../state/proposals-filter-reducer";
+import {useAppDispatch} from "../../../state/hooks";
+import {addNotToShowTrucksAC, deleteNotToShowTrucksAC} from "../../../state/proposals-filter-reducer";
 
 type TruckGroupElementType = {
     truckGroup: TruckGroupType

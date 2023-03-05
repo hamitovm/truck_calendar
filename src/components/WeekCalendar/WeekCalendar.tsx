@@ -2,7 +2,7 @@ import {WeekCalendarRow} from "./WeekCalendarRow/WeekCalendarRow";
 import '../../App.scss'
 import {WeekCalendarHeader} from "./WeekCalendarHeader/WeekCalendarHeader";
 import {departmentsInitialState} from "../../state/departments-reducer";
-import {truckProposalsInitialState, TruckProposalsType, TruckProposalType} from "../../state/truck-proposals-reducer";
+import {TruckProposalsType} from "../../state/truck-proposals-reducer";
 import {getDayMonthYear} from "../../helpers/helpers";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../state/store";

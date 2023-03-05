@@ -1,13 +1,9 @@
-import {Checkbox, List, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
-import {StarBorder} from "@mui/icons-material";
-import {changeTruckCardShowValueByTruckIdAC, TruckType} from "../../state/truck-cards-reducer";
-import {useAppDispatch} from "../../state/hooks";
+import {Checkbox, List, ListItemButton, ListItemText} from "@mui/material";
+import {TruckType} from "../../../state/truck-cards-reducer";
+import {useAppDispatch} from "../../../state/hooks";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../state/store";
-import {addNotToShowTrucksAC,
-    deleteNotToShowTrucksAC,
-    ProposalsFilterType
-} from "../../state/proposals-filter-reducer";
+import {AppRootStateType} from "../../../state/store";
+import {addNotToShowTrucksAC, deleteNotToShowTrucksAC} from "../../../state/proposals-filter-reducer";
 
 export type TruckGroupElementInnerType = {
     truck: TruckType

@@ -6,20 +6,20 @@ import {
 } from "../../../state/truck-proposals-reducer";
 import {truckListInitialState} from "../../../state/truck-cards-reducer";
 import {Chip, Tooltip} from "@mui/material";
-import React, {useState} from "react";
+import React, {memo, useState} from "react";
 import {ProposalControls} from "../../ProposalControls/ProposalControls";
 import {useAppDispatch} from "../../../state/hooks";
 import {getDayMonthYear} from "../../../helpers/helpers";
 
-export type TruckElementPropsType = {
+export type TruckProposalChipPropsType = {
     proposal: TruckProposalType
     date: Date
 }
 
-export const TruckElement = (props: TruckElementPropsType) => {
+export const TruckProposalChip = memo((props: TruckProposalChipPropsType) => {
     const truck = truckListInitialState.find(el => el.id === props.proposal.truckId)
     let [chipContropOpen, setChipContropOpen] = useState<boolean>(false)
-    let [chipColor, setChipColor] = useState<"default" | "info" | "success" | "error" | "primary" | "secondary" | "warning" | undefined>('default')
+
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const onChipClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
@@ -29,13 +29,10 @@ export const TruckElement = (props: TruckElementPropsType) => {
     const dispatch = useAppDispatch()
     const acceptProposal = () => {
         dispatch(acceptTruckProposalAC(getDayMonthYear(props.date), props.proposal.id))
-        setChipColor('success')
         handleClose()
-
     }
     const rejectProposal = () => {
         dispatch(rejectTruckProposalAC(getDayMonthYear(props.date), props.proposal.id))
-        setChipColor('error')
         handleClose()
     }
     const deleteProposal = () => {
@@ -47,6 +44,9 @@ export const TruckElement = (props: TruckElementPropsType) => {
         setAnchorEl(null)
         setChipContropOpen(false)
     }
+
+    let chipColor: "default" | "info" | "success" | "error" | "primary" | "secondary" | "warning" | undefined =
+        (props.proposal.status === "accepted" && 'success') || (props.proposal.status === "rejected" && 'error') || 'default'
 
     return (
         <div className={'truck-proposal__element'}>
@@ -67,4 +67,4 @@ export const TruckElement = (props: TruckElementPropsType) => {
         </div>
 
     )
-}
+})
